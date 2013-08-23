@@ -1,7 +1,6 @@
-
   document.addEventListener('deviceready',main, false);
   function main() {
-      alert('deviceready');
+      
 
       cordova.exec(function (winParam) {
 
@@ -15,12 +14,11 @@
 
   function getData(data) {
       var txt = "";
-      for (var i = 0; i < data.texts.length; i++) {
+      for (var i = 0; i < data.texts.length; i++) 
+      {
 
-          if (data.texts[i].message.substring(0, 2) == "MD") {
-
-              txt += "<b> Message:</b>" + data.texts[i].message + "!<br />";
-          }
+         txt += "<b> Message:</b>" + data.texts[i].message + "!<br />";
+          
       }
       return txt;
   }
