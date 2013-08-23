@@ -1,24 +1,26 @@
 
-cordova.define("cordova/plugin/SMSReader", function (require, exports, module) {
-    var exec = require('cordova/exec');
-    var SmsRecPlugin = function () { };
+  document.addEventListener('deviceready',main, false);
+  function main() {
+      alert('deviceready');
 
-    /**
-    * inbox reader
-    */
-    SmsRecPlugin.prototype.getInbox = function (params, successCallback, failureCallback) {
-        alert("hi");
-        return exec(successCallback, failureCallback, 'SMSReader', 'inbox', [params]);
-    }
+      cordova.exec(function (winParam) {
 
-    /**
-    * sent reader
-    */
-    SmsRecPlugin.prototype.getSent = function (params, successCallback, failureCallback) {
-        
-        return exec(successCallback, failureCallback, 'SMSReader', 'sent', [params]);
-    }
+          var text = getData(winParam);
+          document.getElementById("inbox").innerHTML = text;
 
-    var smsrecplugin = new SmsRecPlugin();
-    module.exports = smsrecplugin;
-});
+      }, function (error) { alert("error"); }, "SMSReader", "GetTexts", ["", -1]);
+      
+  }
+
+
+  function getData(data) {
+      var txt = "";
+      for (var i = 0; i < data.texts.length; i++) {
+
+          if (data.texts[i].message.substring(0, 2) == "MD") {
+
+              txt += "<b> Message:</b>" + data.texts[i].message + "!<br />";
+          }
+      }
+      return txt;
+  }
